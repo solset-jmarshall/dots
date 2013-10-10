@@ -1,0 +1,136 @@
+SOME BASIC GIT COMMANDS
+
+git commit  [ file name ]   	=  commits to local repo
+git commit -a			= commits all files to local repo
+git commit -m		= commit all with "message"
+git log				= log of all commits
+git status			= what changes have not been made
+git add			= add new files or file changes to commit
+git add -A			= adds all new files and file changes (NOT RECOMMENDED)
+git rm				= remove file
+git diff [file]			= shows what was modified in specified file
+
+
+git branch			= gives name of current branch
+git branch [new-head-name]  = create a new branch
+git checkout [new branch name] = switch to branch
+git checkout -b [head] 	= create new branch and switch to it
+git branch -d [head] 	= delete branch
+git merge [head]		= merge with head
+
+
+IMPORTANT!!!  TO SETUP A DAILY WORKFLOW
+
+1. Login using ssh
+2. git status 			= checks to see what changes are still waiting for you, if any. This will also tell you what branch you are on but…
+3. git branch			= let's you know what branch you are on and what branches other branches you have working.
+4. git add/commit		= add and commit any changes you have made to their appropriate branches
+5. git pull --rebase		= pull updates from your trusted devel team and place any of your own updates on top of that
+
+doing all these things will help keep directories clean. 
+
+6. git rebase [head} 	= keeping your current working branch updated (usually with your master branch)
+
+
+
+Git Processes: in a logical order of situation:
+
+		Sign on to git & normal daily functions
+
+
+
+git status			= check your local repository
+git pull --rebase		= pulls changes from working directory and then places any local updates on top of that
+git add [ file name/s]	= add each individual file that has been updated
+git commit -m "message" 	= commit all added files and a message with the commit.
+git push			= push finished changes to the working directory
+pull-to-staging		= pushes changes to the staging server to check before going live
+push-to-live			= pushes changed to the live production server
+
+
+		branching
+
+git branch			= shows working branches and shows what branch you are currently on
+git checkout [ head ]	= changes to different specified branch
+git branch [head]		= creates a new branch
+git checkout -b [ head ] 	= creates a new branch and switches to that branch
+git merge --squash [branch] = merges branch into current branch as a single commit (squashing a long list of commits)
+
+		While on branch
+git add			= use git add and commit the same way you normally would
+git commit			= only don't push from the branch until you merge changes.
+
+		merging
+
+git branch			= make sure you are on the correct branch [master] is the main branch
+git merge [head]		= merges specified branch with current branch
+
+git branch -d [head]		= deletes specified branch.
+
+
+		updating branches
+git rebase [head]		= while on branch, updates current branch with specified branch
+git rebase [head] [head]	= updates second specified branch with 1st specified branch and switches to second specified branch.
+
+
+		remote branching
+git branch -a      		     = show all branches local and remote
+git branch -r      		     = show all branches remote
+git push origin [head] = push branch
+git push origin :[head]= delete remote branch
+git branch -r -d origin/[branch]  = force delete a remote branch
+
+git fetch origin [remote-branch]:[local-branch]   = pull remote branch down to local branch 
+
+		Pushing details
+git push [remote] [local branch]:[remote branch] = pushing a local branch to a remote repo
+git push -f [remote] [branch] = forces a push of the local repo to a remote
+
+
+NEW:
+git remote -v    = Will list all remote repositories
+git remote rm "remote name" = will remove remote repository
+
+git reset --hard # removes staged and working directory changes
+
+git clean -f -d # remove untracked files
+git clean -f -x -d # CAUTION: as above but removes ignored files like config.
+
+git log -5      =  logs last 5 commits
+git log -p		= logs commits with changes
+git config --global --add color.ui true    adds git colors for terminal
+git config --global --add color.ui false   turns colors off
+git push <remote> :<remote_branch>     = delete remote branch
+git reset --hard repo/branch  = resets local to remote branch i.e. "production/master"
+git submodule add repo = add a submodule to the repo (i.e. Facebook")
+git log --oneline --graph --decorate   = add graphical interface
+
+git add -i   = git add interactively
+
+
+GIT STASH:
+git stash list [<options>] 
+git stash show [<stash>]
+ git stash drop [-q|--quiet] [<stash>] 
+git stash ( pop | apply ) [--index] [-q|--quiet] [<stash>] 
+git stash branch <branchname> [<stash>] 
+git stash [save [--patch] [-k|--[no-]keep-index] [-q|--quiet] [-u|--include-untracked] [-a|--all] [<message>]] 
+git stash clear git stash create
+
+//TERMINAL COMMANDS///////////////////
+
+alias documents='cd ~/Documents'    = Add temporary alias
+nano ~/.bash_profile				= Add permanent alias
+control +c or z              		= stop command
+
+
+git remote set-url origin git://new.url.here
+
+git rm --cached <file> = git remove cached files to remove history of trached files that were added to .gitignore
+
+
+[alias]
+lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold red)%d%C(reset)' --all
+lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+lg = !"git lg1"
+
